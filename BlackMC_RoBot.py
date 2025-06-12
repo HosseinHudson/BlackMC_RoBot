@@ -9,20 +9,17 @@ ADMIN_ID = 5938039998
 BOT_USERNAME = "BlackMC_RoBot"
 DATA_FILE = "users.json"
 
-ایجاد فایل json اگر وجود نداشت
 
 if not os.path.exists(DATA_FILE):
 with open(DATA_FILE, "w", encoding="utf-8") as f:
 json.dump({}, f, ensure_ascii=False)
 
-گرفتن تاریخ ساده ایران (بدون pytz)
 
 def get_iran_date():
 now = datetime.utcnow()
 iran_time = now + timedelta(hours=3, minutes=30)
 return iran_time.strftime("%Y/%m/%d")
 
-ذخیره اطلاعات کاربر
 
 def save_user(user_id, username):
 with open(DATA_FILE, "r", encoding="utf-8") as f:
@@ -40,14 +37,12 @@ data[user_id] = {
 with open(DATA_FILE, "w", encoding="utf-8") as f:
 json.dump(data, f, ensure_ascii=False)
 
-گرفتن اطلاعات کاربر
 
 def get_user_data(user_id):
 with open(DATA_FILE, "r", encoding="utf-8") as f:
 data = json.load(f)
 return data.get(str(user_id), None)
 
-دکمه‌های اصلی منو
 
 def get_main_menu():
 buttons = [
@@ -57,7 +52,6 @@ buttons = [
 ]
 return ReplyKeyboardMarkup(buttons, resize_keyboard=True)
 
-هندلر استارت
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 user = update.effective_user
@@ -74,7 +68,6 @@ await update.message.reply_text(
 reply_markup=get_main_menu()
 )
 
-هندلر پیام‌ها
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 text = update.message.text
